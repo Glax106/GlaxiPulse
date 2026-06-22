@@ -493,9 +493,16 @@ overlay.classList.remove("active");
 }
 
 function addDM() {
-const name = prompt("Enter friend name:");
+// ১. প্রথমে একটি গোপন রুম কোড চাইবে যা আপনি ও আপনার বন্ধু দুজনেই এক লিখবেন
+const roomCode = prompt("Enter a Secret Room Code (e.g., ahsan_and_rafi):");
+if (!roomCode) return;
+
+// ২. চ্যাটে আপনার বন্ধুর কী নাম দেখাবে তা লিখুন
+const name = prompt("Enter friend's display name:");
 if (!name) return;
-const id = "dm_" + Date.now();
+
+// স্পেস বা খালি জায়গা থাকলে তা কেটে আইডি তৈরি করবে
+const id = "dm_" + roomCode.replace(/\s+/g, '_').toLowerCase();
 
 const btn = document.createElement("button");
 btn.className = "channel";
@@ -505,6 +512,7 @@ btn.onclick = () => switchChat(id, name);
 document.getElementById("dmList").appendChild(btn);
 switchChat(id, name);
 }
+  
 
 function openAuth(type) {
 authModal.style.display = "flex";
